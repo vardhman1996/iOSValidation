@@ -22,7 +22,6 @@ public class ValidateLine {
         m = requiredPattern.matcher(line);
         if (m.find()) {
             gotRequiredPattern = true;
-            System.out.println("App launching notified");
         }
 
         m.reset();
@@ -30,7 +29,6 @@ public class ValidateLine {
         m = patternOne.matcher(line);
         if (m.find()) {
             gotPatternOne = true;
-            System.out.println("Deep Link handling done");
         }
 
         m.reset();
@@ -38,7 +36,6 @@ public class ValidateLine {
         m = patternThree.matcher(line);
         if (m.find()) {
             gotPatternThree = true;
-            System.out.println("Pattern 3 matched");
         }
 
         m.reset();
@@ -48,10 +45,8 @@ public class ValidateLine {
             count++;
             if (count == 4) {
                 gotPatternTwo = true;
-                System.out.println("found");
             }
         }
-
     }
 
     public boolean isGotRequiredPattern() {
