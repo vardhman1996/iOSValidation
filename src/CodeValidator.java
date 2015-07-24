@@ -9,8 +9,9 @@ public class CodeValidator {
     public static void main(String[] args) throws FileNotFoundException {
         File file = new File("/Users/VardhmanMehta/Desktop/testXCode/testCode/testCode/AppDelegate.m");
         Scanner scanner = new Scanner(file);
+        ValidateLine validateLine = new ValidateLine();
         while(scanner.hasNextLine()) {
-            System.out.println(scanner.nextLine());
+            validateLine.checkLines(scanner.nextLine());
         }
     }
 }
