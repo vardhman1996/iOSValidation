@@ -6,36 +6,37 @@ import java.util.Scanner;
  * Created by VardhmanMehta on 23/07/15.
  */
 public class CodeValidator {
-    public static void main(String[] args) throws FileNotFoundException {
-        File file = new File("/Users/VardhmanMehta/Desktop/testXCode/testCode/testCode/AppDelegate.m");
-        Scanner scanner = new Scanner(file);
+    public static void main(String[] args)  {
+        Scanner scanner = null;
+        try {
+            File file = new File(args[0]);
+            scanner = new Scanner(file);
+        } catch (FileNotFoundException | ArrayIndexOutOfBoundsException e) {
+            System.out.println("File Not found");
+            System.exit(0);
+        }
         ValidateLine validateLine = new ValidateLine();
         while(scanner.hasNextLine()) {
             validateLine.checkLines(scanner.nextLine());
         }
 
-        if(validateLine.isGotRequiredPattern()) {
-            System.out.println("[  PASS  ] WizRocket notification call found");
+        if(validateLine.isBasicInitialized()) {
+            System.out.println("[  OKAY  ] Library initialization");
         } else {
-            System.out.println("[  FAIL  ] WizRocket notification call not found");
+            System.out.println("[  FAIL  ] Library initialization");
         }
 
-        if(validateLine.isGotPatternOne()) {
-            System.out.println("[  PASS  ] Deep Link handled correctly");
+        if(validateLine.isDeepLinkInitialized()) {
+            System.out.println("[  OKAY  ] Deep link integration");
         } else {
-            System.out.println("[  FAIL  ] Deep Link not handled correctly");
+            System.out.println("[  FAIL  ] Deep link integration");
         }
 
-        if(validateLine.isGotPatternThree()) {
-            System.out.println("[  PASS  ] Push Notification support call found");
+        if(validateLine.isPushSupportConfigured() && validateLine.isPushSupportHandler()) {
+            System.out.println("[  OKAY  ] Push integration");
         } else {
-            System.out.println("[  FAIL  ] Push Notification support call not found");
+            System.out.println("[  FAIL  ] Push integration");
         }
 
-        if(validateLine.isGotPatternTwo()) {
-            System.out.println("[  PASS  ] Push Notification extras call found");
-        } else {
-            System.out.println("[  FAIL  ] Push Notification extras call not found");
-        }
     }
 }

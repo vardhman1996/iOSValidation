@@ -5,64 +5,64 @@ import java.util.regex.Pattern;
  * Created by VardhmanMehta on 23/07/15.
  */
 public class ValidateLine {
-    private static Pattern requiredPattern = Pattern.compile("\\[WizRocket[\\s]*notifyApplicationLaunchedWithOptions[\\s]*:[\\s]*[\\w]*[\\s]*\\][\\s]*;");
-    private static Pattern patternOne = Pattern.compile("\\[WizRocket[\\s]*handleOpenURL[\\s]*:[\\s]*url[\\s]*sourceApplication[\\s]*:[\\s]*[\\w]*[\\s]*\\][\\s]*;");
-    private static Pattern patternTwo = Pattern.compile("\\[WizRocket[\\s]*handleNotificationWithData[\\s]*:[\\s]*[\\w]*[\\s]*\\][\\s]*;");
-    private static Pattern patternThree = Pattern.compile("\\[WizRocket[\\s]*setPushToken[\\s]*:[\\s]*[\\w]*[\\s]*\\][\\s]*;");
+    private static Pattern basicInitialization = Pattern.compile("\\[WizRocket[\\s]*notifyApplicationLaunchedWithOptions[\\s]*:[\\s]*[\\w]*[\\s]*\\][\\s]*;");
+    private static Pattern deepLinkIntrgration = Pattern.compile("\\[WizRocket[\\s]*handleOpenURL[\\s]*:[\\s]*url[\\s]*sourceApplication[\\s]*:[\\s]*[\\w]*[\\s]*\\][\\s]*;");
+    private static Pattern pushSupportHandler = Pattern.compile("\\[WizRocket[\\s]*handleNotificationWithData[\\s]*:[\\s]*[\\w]*[\\s]*\\][\\s]*;");
+    private static Pattern pushSupport = Pattern.compile("\\[WizRocket[\\s]*setPushToken[\\s]*:[\\s]*[\\w]*[\\s]*\\][\\s]*;");
 
-    private boolean gotRequiredPattern = false;
-    private boolean gotPatternOne = false;
-    private boolean gotPatternTwo = false;
-    private boolean gotPatternThree = false;
+    private boolean gotBasicInitialization = false;
+    private boolean gotDeepLinkIntegration = false;
+    private boolean gotPushSupportHandler = false;
+    private boolean gotPushSupport = false;
 
     private int count = 0;
 
     public void checkLines(String line) {
         Matcher m;
-        m = requiredPattern.matcher(line);
+        m = basicInitialization.matcher(line);
         if (m.find()) {
-            gotRequiredPattern = true;
+            gotBasicInitialization = true;
         }
 
         m.reset();
 
-        m = patternOne.matcher(line);
+        m = deepLinkIntrgration.matcher(line);
         if (m.find()) {
-            gotPatternOne = true;
+            gotDeepLinkIntegration = true;
         }
 
         m.reset();
 
-        m = patternThree.matcher(line);
+        m = pushSupport.matcher(line);
         if (m.find()) {
-            gotPatternThree = true;
+            gotPushSupport = true;
         }
 
         m.reset();
 
-        m = patternTwo.matcher(line);
+        m = pushSupportHandler.matcher(line);
         if (m.find()) {
             count++;
             if (count == 4) {
-                gotPatternTwo = true;
+                gotPushSupportHandler = true;
             }
         }
     }
 
-    public boolean isGotRequiredPattern() {
-        return gotRequiredPattern;
+    public boolean isBasicInitialized() {
+        return gotBasicInitialization;
     }
 
-    public boolean isGotPatternOne() {
-        return gotPatternOne;
+    public boolean isDeepLinkInitialized() {
+        return gotDeepLinkIntegration;
     }
 
-    public boolean isGotPatternTwo() {
-        return gotPatternTwo;
+    public boolean isPushSupportHandler() {
+        return gotPushSupportHandler;
     }
 
-    public boolean isGotPatternThree() {
-        return gotPatternThree;
+    public boolean isPushSupportConfigured() {
+        return gotPushSupport;
     }
 
 }
